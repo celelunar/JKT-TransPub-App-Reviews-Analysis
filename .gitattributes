@@ -1,0 +1,69 @@
+# ==========================
+# Line endings normalization
+# ==========================
+
+# Use LF for all text files (recommended for Python + Streamlit)
+* text=auto eol=lf
+
+# CSV, TSV, and data files should always use LF
+*.csv text eol=lf
+*.tsv text eol=lf
+*.txt text eol=lf
+
+# Python files
+*.py text eol=lf
+
+# JSON / YAML
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Markdown & documentation
+*.md text eol=lf
+
+# Configs
+*.ini text eol=lf
+*.cfg text eol=lf
+*.toml text eol=lf
+
+# Jupyter notebooks
+*.ipynb text eol=lf
+
+
+# ==========================
+# Binary / model files
+# ==========================
+
+# Prevent Git from attempting text diff on binary files
+*.bin binary
+*.pt binary
+*.pth binary
+*.ckpt binary
+*.h5 binary
+*.onnx binary
+*.pickle binary
+*.pkl binary
+
+# ==========================
+# Image assets
+# ==========================
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+
+# ==========================
+# Compressed files
+# ==========================
+
+*.zip binary
+*.gz binary
+*.tar binary
+*.tar.gz binary
+
+
+# ==========================
+# Streamlit specific
+# ==========================
