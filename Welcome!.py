@@ -9,37 +9,31 @@ st.set_page_config(
 )
 
 # --- Welcome Page Content ---
-st.title("🤖 Welcome to the Sentiment & Topic Analyzer App")
+st.title("🤖 Welcome to the Public Transportation Application Review Analyzer")
 st.markdown("""
-This application demonstrates the deployment of advanced Natural Language Processing (NLP) models. 
-You can use it to analyze custom datasets for sentiment and topics, leveraging the power of Transformer-based models.
+This website showcases the deployment of advanced Natural Language Processing (NLP) models using **IndoBERT**, **NusaBERT**, and **BERTopic**. It is designed to analyze user reviews from Jakarta's public transportation applications on Google Play, which are: Access by KAI, Jak Lingko App, MyMRTJ, and TJ: Transjakarta.
 """)
 
-st.header("What You Can Do Here")
+# --- Main Features ---
+st.subheader("What You Can Do in This Web")
 st.markdown("""
-* **Predict Sentiment:** Classify text data into specific sentiment categories (e.g., Positive, Negative).
-* **Discover Topics:** Automatically extract and label the main themes and topics within your text data.
+* **🚦 Predict Sentiment:** Classify reviews into sentiment categories (positive or negative) using the pre-trained BERT model.
+            
+* **🧭 Discover Topics:** Assign reviews to one of the existing topics identified by the pre-trained BERTopic model.
 """)
 
-st.subheader("App Directory")
-
-# A directory/short explanation for each page
+# --- Directory ---
+st.subheader("Web Directory")
 st.info("""
-**🏠 Welcome Page (This Page):** An introduction to the application's capabilities.
+**🏠 Welcome Page:** An overview of the website's purpose and capabilities.
 
-**📚 Data and Method:** Provides a deep dive into the dataset used for model training and the underlying NLP methodologies, including a comparison of models like IndoBERT, NusaBERT, and BERTopic.
+**📚 Data and Method:** Detailed information about the dataset and NLP techniques used to build the predictive models.
 
-**⚙️ Model Usage (To be built):** The interactive page where you can upload your own data (`.csv` file) and run the deployed Sentiment Analysis and Topic Modelling models.
+**⚙️ Model Usage:** An interactive interface where you can input your own review and run the deployed predictive models.
 
-**💡 Tutorial (To be built):** A guide on how to effectively use the 'Model Usage' page.
+**💡 Tutorial:** A step-by-step guide to help you use the Model Usage page effectively.
 """)
 
 # Note for users
 st.markdown("---")
-st.warning("**👈 Please use the sidebar to navigate between pages.**")
-
-# Placeholder for data/model loading (good practice for main file)
-# In a real app, you would load models and data here using @st.cache_resource
-# and share them across pages using st.session_state or a utility module.
-# st.session_state["data"] = pd.read_csv("your_data.csv")
-# st.session_state["sentiment_model"] = load_sentiment_model("saved_sentiment_model.joblib")
+st.warning("**👈 Use the sidebar to naivage through the pages.**")
