@@ -2,14 +2,14 @@ import streamlit as st
 
 # --- Page Config ---
 st.set_page_config(
-    page_title="BERT & BERTopic Deployment App",
+    page_title="Welcome!",
     page_icon="🚌",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # --- Brief Explanation ---
-st.title("🚌 Welcome to the Public Transportation Application Review Analyzer")
+st.title("🚌 Public Transportation Application Reviews Analyzer")
 st.markdown("""
 This website showcases the deployment of advanced Natural Language Processing (NLP) models using **IndoBERT**, **NusaBERT**, and **BERTopic**. It is designed to analyze user reviews from Jakarta's public transportation applications on Google Play, which are: Access by KAI, Jak Lingko App, MyMRTJ, and TJ: Transjakarta.
 """)
