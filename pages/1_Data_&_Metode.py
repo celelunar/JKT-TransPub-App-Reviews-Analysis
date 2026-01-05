@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
@@ -132,6 +134,7 @@ def generate_word_cloud(df, sentiment=None, colormap='viridis'):
     ax.axis("off") # Hide axes
     
     st.pyplot(fig)
+    plt.close(fig)
 
 # --- Generate Resample Dist Bar Chart ---
 def generate_resam_chart(df):  
