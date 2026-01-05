@@ -173,11 +173,11 @@ def generate_resam_chart(df):
     st.pyplot(fig)
 
 # --- INTERFACE ---
-st.set_page_config(
-    page_title="Data dan Metodologi",
-    page_icon="📊",
-    layout='wide'
-)
+# st.set_page_config(
+#     page_title="Data dan Metodologi",
+#     page_icon="📊",
+#     layout='wide'
+# )
 st.title("📊 Data dan Metodologi")
 
 tab_data, tab_resampling, tab_sa, tab_tm = st.tabs([
