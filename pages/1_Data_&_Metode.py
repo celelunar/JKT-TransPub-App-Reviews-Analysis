@@ -120,7 +120,7 @@ def generate_word_cloud(df, sentiment=None, colormap='viridis'):
         st.write(f"*(No data found for {title})*")
         return
 
-    wordcloud = WordCloud(
+    wc = WordCloud(
         width=800, 
         height=400, 
         background_color='white',
@@ -129,12 +129,14 @@ def generate_word_cloud(df, sentiment=None, colormap='viridis'):
     ).generate(text_corpus) 
 
     st.markdown(f"**{title}**")
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.imshow(wordcloud, interpolation='bilinear')
-    ax.axis("off") # Hide axes
+    cloud_img = wc.to_image()
+    st.image(cloud_img, use_container_width=True)
+    # fig, ax = plt.subplots(figsize=(10, 5))
+    # ax.imshow(wordcloud, interpolation='bilinear')
+    # ax.axis("off") # Hide axes
     
-    st.pyplot(fig)
-    plt.close(fig)
+    # st.pyplot(fig)
+    # plt.close(fig)
 
 # --- Generate Resample Dist Bar Chart ---
 def generate_resam_chart(df):  
