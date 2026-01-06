@@ -26,6 +26,7 @@ def bar_chart(df, x_col, y_col, is_sentiment=False):
 
     plt.tight_layout()
     st.pyplot(fig)
+    plt.close(fig)
 
 def resample_chart(df):  
     cmap = plt.get_cmap('berlin')
@@ -64,6 +65,7 @@ def resample_chart(df):
 
     plt.tight_layout()
     st.pyplot(fig)
+    plt.close(fig)
 
 def sentiment_bar_chart(sent_counts):
     cmap = plt.get_cmap("berlin")
@@ -110,6 +112,7 @@ def sentiment_bar_chart(sent_counts):
 
     plt.tight_layout()
     st.pyplot(fig)
+    plt.close(fig)
 
 def topic_bar_chart(topic_counts, title, cmap_range=(0.2, 0.8), figsize=(5,3)):
     cmap = plt.get_cmap("berlin")

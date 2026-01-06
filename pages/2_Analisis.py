@@ -211,7 +211,9 @@ if has_pos and has_neg:
         df_pos = st.session_state.df_pos
         topic_pos_counts = df_pos["Topic"].value_counts()
 
-        st.pyplot(topic_bar_chart(topic_pos_counts, "Distribusi Topik Positif"))
+        fig = topic_bar_chart(topic_pos_counts, "Distribusi Topik Positif")
+        st.pyplot(fig)
+        plt.close(fig)
 
         st.markdown("**📌 Interpretasi Topik Positif:**")
         st.write(topic_interpretation(topic_pos_counts, pos_label_map, "positif"))
@@ -227,7 +229,9 @@ if has_pos and has_neg:
         df_neg = st.session_state.df_neg
         topic_neg_counts = df_neg["Topic"].value_counts()
 
-        st.pyplot(topic_bar_chart(topic_neg_counts, "Distribusi Topik Negatif"))
+        fig = topic_bar_chart(topic_neg_counts, "Distribusi Topik Negatif")
+        st.pyplot(fig)
+        plt.close(fig)
 
         st.markdown("**📌 Interpretasi Topik Negatif:**")
         st.write(topic_interpretation(topic_neg_counts, neg_label_map, "negatif"))
@@ -243,7 +247,9 @@ elif has_pos:
     df_pos = st.session_state.df_pos
     topic_pos_counts = df_pos["Topic"].value_counts()
 
-    st.pyplot(topic_bar_chart(topic_pos_counts, "Distribusi Topik Positif"))
+    fig = topic_bar_chart(topic_pos_counts, "Distribusi Topik Positif")
+    st.pyplot(fig)
+    plt.close(fig)
 
     st.markdown("**📌 Interpretasi Topik Positif:**")
     st.write(topic_interpretation(topic_pos_counts, pos_label_map, "positif"))
@@ -259,7 +265,9 @@ elif has_neg:
     df_neg = st.session_state.df_neg
     topic_neg_counts = df_neg["Topic"].value_counts()
 
-    st.pyplot(topic_bar_chart(topic_neg_counts, "Distribusi Topik Negatif"))
+    fig = topic_bar_chart(topic_neg_counts, "Distribusi Topik Negatif")
+    st.pyplot(fig)
+    plt.close(fig)
 
     st.markdown("**📌 Interpretasi Topik Negatif:**")
     st.write(topic_interpretation(topic_neg_counts, neg_label_map, "negatif"))
