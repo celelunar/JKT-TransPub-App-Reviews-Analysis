@@ -6,7 +6,6 @@ LABEL_MAP = {
     "LABEL_1": "Positif"
 }
 
-@st.cache_data(show_spinner=False)
 def predict_sentiment(texts, tokenizer, model):
     inputs = tokenizer(
         texts,

@@ -1,7 +1,6 @@
 from sklearn.metrics.pairwise import cosine_similarity
 import streamlit as st
 
-@st.cache_data(show_spinner=False)
 def predict_topic(topic_model, text):
     text = f"passage: {text}"  # E5 best practice
     topic_id, _ = topic_model.transform([text])
