@@ -246,7 +246,7 @@ with tab_data:
     with col_pos:
         st.markdown("**Sentimen Positif**")
         st.image("assets/positive.png", width="stretch")
-    with col_full:
+    with col_neg:
         st.markdown("**Sentimen Negatif**")
         st.image("assets/negative.png", width="stretch")
 
