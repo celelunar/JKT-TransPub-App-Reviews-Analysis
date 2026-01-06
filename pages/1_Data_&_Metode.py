@@ -1,147 +1,14 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud
-from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
-import io
-import re
-import os
+from helper.data_loader import load_excel
+from helper.charts import bar_chart, resample_chart
 
 # --- FUNCTIONS INITIALIZATION ---
-STAT_FILE_PATH = 'Dataset/data.xlsx'
-DATA_FILE_PATH = 'Dataset/no_emoji.csv'
-STOPWORDS_PATH = 'Dataset/tala-stopwords-indonesia.txt'
+STAT_FILE_PATH = 'data/data.xlsx'
+STOPWORDS_PATH = 'data/tala-stopwords-indonesia.txt'
 SENTIMENT = 'sentiment'
 TEXT = 'cleaned_content'
-
-# --- Remove Stopwords ---
-def load_stopwords(filepath):
-    stopwords = set()
-
-    # From tala
-    if not os.path.exists(filepath):
-        print(f"❌ Error: Stopwords file not found at {filepath}.")
-    else:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            tala_stopwords = [line.strip() for line in f if line.strip()]
-            stopwords.update(tala_stopwords)
     
-    # From Sastrawi
-    try:
-        factory = StopWordRemoverFactory()
-        sastrawi_stopwords = factory.get_stop_words()
-        stopwords.update(sastrawi_stopwords)
-    except Exception as e:
-        print(f"❌ Error loading Sastrawi stopwords: {e}")
-
-    # Additional stopwords
-    manual_stopwords = ['nya', 'ya', 'ap', 'ok', 'sih', 'deh', 'tau', 'gue', 'kak', 'eh', 'gua', 'tuh', 'lu', 'the', 'by', 'hadeh', 'ku', 'jis', 'an', 'dah', 'mah', 'loh', 'iya', 'you', 'ayo', 'wow', 'jos', 'sip', 'aduh', 'anjir', 'and', 'apatu', 'ah', 'si', 'duh', 'mbak', 'kah', 'amin', 'this', 'mu', 'baiknya', 'berkali', 'kali', 'kurangnya', 'mata', 'olah', 'sekurang', 'setidak', 'tama', 'tidaknya', 'banget', 'pas', 'kayak', 'oke']
-    stopwords.update(manual_stopwords)
-
-    return list(stopwords)
-
-CUSTOM_STOPWORDS = load_stopwords(STOPWORDS_PATH)
-
-def remove_stopwords(text, stopwords):
-    words = text.split()
-    filtered_words = [word for word in words if word not in stopwords]
-    return " ".join(filtered_words)
-
-# --- Load Data ---
-@st.cache_data
-def load_csv(path):
-    try:
-        df = pd.read_csv(path)
-        df[TEXT] = df[TEXT].astype(str)
-        return df
-    except FileNotFoundError:
-        st.error(f"❌ Error: Dataset not found at '{path}'")
-        return pd.DataFrame() # empty DataFrame
-    
-def load_excel(path, sheet_name):
-    try:
-        df = pd.read_excel(
-            path, 
-            sheet_name=sheet_name, 
-            engine='openpyxl'
-        )
-        return df
-    except FileNotFoundError:
-        st.error(f"❌ Error: Excel file not found at '{path}'")
-        return pd.DataFrame()
-    except ValueError:
-        st.error(f"❌ Error: Sheet '{sheet_name}' not found in the Excel file.")
-        return pd.DataFrame()
-    except Exception as e:
-        st.error(f"❌ An unexpected error occurred: {e}")
-        return pd.DataFrame()
-    
-# --- Generate Bar Chart ---
-def generate_bar_chart(df, x_col, y_col, is_sentiment=False):   
-    if is_sentiment:
-        df_plot = df[df[x_col].str.lower() != 'neutral'].copy()
-    else:
-        df_plot = df.copy()
-    
-    cmap = plt.get_cmap('berlin') 
-    colors = cmap(np.linspace(0.2, 0.8, len(df_plot)))
-
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.bar(df_plot[x_col], df_plot[y_col], color=colors)
-    
-    ax.set_xlabel(x_col)
-    ax.set_ylabel(y_col)
-    
-    ax.tick_params(axis='x', rotation=0)
-
-    for i, v in enumerate(df_plot[y_col]):
-        ax.text(i, v + (max(df_plot[y_col]) * 0.01), str(v), ha='center', fontweight='bold')
-
-    plt.tight_layout()
-    st.pyplot(fig)
-
-# --- Generate Resample Dist Bar Chart ---
-def generate_resam_chart(df):  
-    cmap = plt.get_cmap('berlin')
-        
-    color_neg = cmap(0.8)  # Color for Negative
-    color_pos = cmap(0.2)  # Color for Positive
-
-    labels = df['Sampling Type']
-    neg_counts = df['Amount of Negative Sentiment']
-    pos_counts = df['Amount of Positive Sentiment']
-    
-    x = np.arange(len(labels))  
-    width = 0.35
-
-    fig, ax = plt.subplots(figsize=(10, 3))
-    
-    rects1 = ax.bar(x - width/2, pos_counts, width, label='Positif', color=color_pos)
-    rects2 = ax.bar(x + width/2, neg_counts, width, label='Negatif', color=color_neg)
-
-    max_val = max(max(pos_counts), max(neg_counts))
-    ax.set_ylim(0, max_val * 1.15)
-
-    ax.set_ylabel('Jumlah Sentimen')
-    ax.set_xticks(x)
-    ax.set_xticklabels(labels)
-    ax.legend(loc='upper right', frameon=True)
-
-    for rects in [rects1, rects2]:
-        for rect in rects:
-            height = rect.get_height()
-            ax.annotate(f'{height}',
-                        xy=(rect.get_x() + rect.get_width() / 2, height),
-                        xytext=(0, 3), 
-                        textcoords="offset points",
-                        ha='center', va='bottom', fontweight='bold')
-
-    plt.tight_layout()
-    st.pyplot(fig)
-
 # --- INTERFACE ---
 st.set_page_config(
     page_title="Data dan Metodologi",
@@ -157,7 +24,6 @@ tab_data, tab_resampling, tab_sa, tab_tm = st.tabs([
     "📰 Pemodelan Topik"
 ])
 
-df = load_csv(DATA_FILE_PATH)
 pos_sam = load_excel(STAT_FILE_PATH, sheet_name='pos_sam')   
 neg_sam = load_excel(STAT_FILE_PATH, sheet_name='neg_sam')   
 app_dist = load_excel(STAT_FILE_PATH, sheet_name='app_dist')
@@ -166,7 +32,7 @@ train_dist = load_excel(STAT_FILE_PATH, sheet_name='train_dist')
 pos_topics_df = pd.read_excel(STAT_FILE_PATH, sheet_name="pos_lab")
 neg_topics_df = pd.read_excel(STAT_FILE_PATH, sheet_name="neg_lab")
 
-if df.empty or pos_sam.empty or neg_sam.empty or app_dist.empty or sen_dist.empty or train_dist.empty:
+if pos_sam.empty or neg_sam.empty or app_dist.empty or sen_dist.empty or train_dist.empty:
     st.stop()
 
 # --- Data Tab ---
@@ -228,12 +94,12 @@ with tab_data:
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("**Distribusi Sentimen**")
-        st.write("Grafik ini menunjukkan bahwa secara umum persepsi pengguna terhadap aplikasi transportasi publik Jakarta cenderung positif, di mana jumlah ulasan dengan sentimen positif (8.905) jauh lebih banyak dibandingkan ulasan dengan sentimen negatif (5.257) dan netral (733).")
-        generate_bar_chart(sen_dist, 'Sentiment', 'Amount of Review', is_sentiment=True)
+        st.write("Grafik ini menunjukkan bahwa secara umum persepsi pengguna terhadap aplikasi transportasi publik Jakarta cenderung positif, di mana jumlah ulasan dengan sentimen positif (8.905) jauh lebih banyak dibandingkan ulasan dengan sentimen negatif (5.257).")
+        bar_chart(sen_dist, 'Sentiment', 'Amount of Review', is_sentiment=True)
     with col2:
         st.markdown("**Distribusi Aplikasi**")
         st.write("Grafik ini menunjukkan bahwa Access by KAI mendominasi dataset dengan total 9.000 ulasan. Peringkat kedua ditempati oleh TJ: Transjakarta dengan 3.313 ulasan, diikuti oleh MyMRTJ sebanyak 1.405 ulasan dan Jak Lingko App sebanyak 1.177 ulasan.")
-        generate_bar_chart(app_dist, 'Application', 'Amount of Review')
+        bar_chart(app_dist, 'Application', 'Amount of Review')
 
     # WC
     st.subheader("*Word Clouds*")
@@ -283,7 +149,7 @@ with tab_resampling:
                 Perbandingan ini menunjukkan bagaimana teknik *resampling* yang berbeda dapat digunakan untuk mengurangi ketidakseimbangan kelas dan meningkatkan akurasi pelatihan model.
 
     """)
-    generate_resam_chart(train_dist)
+    resample_chart(train_dist)
 
 
 with tab_sa:

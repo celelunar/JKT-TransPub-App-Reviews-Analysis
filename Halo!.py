@@ -1,5 +1,5 @@
 import streamlit as st
-from models import load_all_models
+from helper.model_loader import load_all_models
 
 # --- Page Config ---
 st.set_page_config(

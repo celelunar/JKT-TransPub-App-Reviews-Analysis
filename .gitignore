@@ -2,6 +2,9 @@
 __pycache__/
 *.py[codz]
 *$py.class
+*.pyc
+*.pyo
+*.pyd
 
 # C extensions
 *.so
@@ -217,3 +220,6 @@ Thumbs.db
 *.pt
 *.bin
 *.ckpt
+
+# Streamlit
+.streamlit/
