@@ -1,6 +1,6 @@
 import streamlit as st 
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from data.sample_texts import SAMPLE_TEXTS
 from helper.preprocessing import preprocess_batch
 from helper.predict_sentiment import predict_sentiment
