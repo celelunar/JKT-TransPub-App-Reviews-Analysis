@@ -1,4 +1,5 @@
 import torch
+import streamlit as st
 
 LABEL_MAP = {
     "LABEL_0": "Negatif",

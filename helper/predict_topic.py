@@ -1,4 +1,5 @@
 from sklearn.metrics.pairwise import cosine_similarity
+import streamlit as st
 
 @st.cache_data(show_spinner=False)
 def predict_topic(topic_model, text):
