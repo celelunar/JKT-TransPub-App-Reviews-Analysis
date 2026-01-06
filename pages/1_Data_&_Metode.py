@@ -103,41 +103,6 @@ def generate_bar_chart(df, x_col, y_col, is_sentiment=False):
     plt.tight_layout()
     st.pyplot(fig)
 
-# --- Generate Word Cloud ---
-def generate_word_cloud(df, sentiment=None, colormap='viridis'):   
-    if sentiment:
-        df_filtered = df[df[SENTIMENT].str.lower() == sentiment.lower()]
-        title = f"Sentimen {sentiment.capitalize()}"
-    else:
-        df_filtered = df
-        title = "Dataset"
-
-    text_corpus = " ".join(
-        df_filtered[TEXT].apply(lambda x: remove_stopwords(x, CUSTOM_STOPWORDS)).tolist()
-    )
-
-    if not text_corpus.strip():
-        st.write(f"*(No data found for {title})*")
-        return
-
-    wc = WordCloud(
-        width=800, 
-        height=400, 
-        background_color='white',
-        max_words=100,
-        colormap=colormap 
-    ).generate(text_corpus) 
-
-    st.markdown(f"**{title}**")
-    cloud_img = wc.to_image()
-    st.image(cloud_img, use_container_width=True)
-    # fig, ax = plt.subplots(figsize=(10, 5))
-    # ax.imshow(wordcloud, interpolation='bilinear')
-    # ax.axis("off") # Hide axes
-    
-    # st.pyplot(fig)
-    # plt.close(fig)
-
 # --- Generate Resample Dist Bar Chart ---
 def generate_resam_chart(df):  
     cmap = plt.get_cmap('berlin')
@@ -178,11 +143,11 @@ def generate_resam_chart(df):
     st.pyplot(fig)
 
 # --- INTERFACE ---
-# st.set_page_config(
-#     page_title="Data dan Metodologi",
-#     page_icon="📊",
-#     layout='wide'
-# )
+st.set_page_config(
+    page_title="Data dan Metodologi",
+    page_icon="📊",
+    layout='wide'
+)
 st.title("📊 Data dan Metodologi")
 
 tab_data, tab_resampling, tab_sa, tab_tm = st.tabs([
@@ -275,15 +240,15 @@ with tab_data:
     st.write("Visualisasi kata-kata yang paling sering muncul pada seluruh dataset serta pada masing-masing kategori sentimen. Semalin besar ukuran sebuah kata pada grafik, maka semakin sering kemunculan kata tersebut.")
     col_full, col_pos, col_neg = st.columns(3)
 
-    # try:
-    #     with col_full:
-    #         generate_word_cloud(df, colormap='berlin')
-    #     with col_pos:
-    #         generate_word_cloud(df, sentiment='positive', colormap='winter')
-    #     with col_neg:
-    #         generate_word_cloud(df, sentiment='negative', colormap='autumn')
-    # except Exception as e:
-    #     st.error(f"An error occurred while generating word clouds. Error: {e}")
+    with col_full:
+        st.markdown("**Seluruh Dataset**")
+        st.image("assets/full.png", width="stretch")
+    with col_pos:
+        st.markdown("**Sentimen Positif**")
+        st.image("assets/positive.png", width="stretch")
+    with col_full:
+        st.markdown("**Sentimen Negatif**")
+        st.image("assets/negative.png", width="stretch")
 
 with tab_resampling:
     st.header("Strategi *Resampling*")

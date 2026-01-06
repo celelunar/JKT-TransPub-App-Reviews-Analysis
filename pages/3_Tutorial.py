@@ -1,11 +1,11 @@
 import streamlit as st
 
 # --- Page Config ---
-# st.set_page_config(
-#     page_title="Tutorial",
-#     page_icon="💡",
-#     layout="wide"
-# )
+st.set_page_config(
+    page_title="Tutorial",
+    page_icon="💡",
+    layout="wide"
+)
 
 # --- Title ---
 st.title("💡 Tutorial Penggunaan Model")

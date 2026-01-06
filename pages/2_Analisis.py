@@ -180,11 +180,11 @@ def generate_sentiment_bar_chart(sent_counts):
 
 # --- INTERFACE ---
 # --- Page Config ---
-# st.set_page_config(
-#     page_title="Penggunaan Model",
-#     page_icon="⚙️",
-#     layout='wide'
-# )
+st.set_page_config(
+    page_title="Penggunaan Model",
+    page_icon="⚙️",
+    layout='wide'
+)
 
 # --- session state ---
 if "df_sent" not in st.session_state:
