@@ -16,8 +16,11 @@ def bar_chart(df, x_col, y_col, is_sentiment=False):
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.bar(df_plot[x_col], df_plot[y_col], color=colors)
     
-    ax.set_xlabel(x_col)
-    ax.set_ylabel(y_col)
+    if x_col == 'Sentiment':
+        ax.set_xlabel('Sentimen')
+    else:
+        ax.set_xlabel('Aplikasi')
+    ax.set_ylabel("Jumlah Ulasan")
     
     ax.tick_params(axis='x', rotation=0)
 

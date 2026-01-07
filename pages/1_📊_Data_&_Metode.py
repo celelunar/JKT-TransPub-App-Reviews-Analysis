@@ -82,7 +82,13 @@ with tab_data:
     try:
         with col1:
             st.markdown("**Sampel Sentimen Positif**")
-            st.dataframe(pos_sam,use_container_width=True, hide_index=True)
+            st.dataframe(pos_sam,
+                         use_container_width=True, 
+                         hide_index=True,
+                         column_config={
+                             "Application": "Aplikasi",
+                             "Review": "Ulasan"
+                         })
         with col2:
             st.markdown("**Sampel Sentimen Negatif**")
             st.dataframe(neg_sam, use_container_width=True, hide_index=True)
