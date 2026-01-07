@@ -3,7 +3,7 @@ from helper.model_loader import load_all_models
 
 # --- Page Config ---
 st.set_page_config(
-    page_title="Welcome!",
+    page_title="Halo!",
     page_icon="🚌",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -30,9 +30,9 @@ st.markdown("""
 # --- Directory ---
 st.subheader("Direktori *Website*")
 st.info("""
-**🏠 Halaman Utama:** Gambaran umum mengenai tujuan dan kemampuan website.
+**🚌 Halaman Utama:** Gambaran umum mengenai tujuan dan kemampuan website.
 
-**📚 Data dan Metode:** Informasi rinci mengenai dataset serta teknik NLP yang digunakan dalam pengembangan model prediktif.
+**📊 Data dan Metode:** Informasi rinci mengenai dataset serta teknik NLP yang digunakan dalam pengembangan model prediktif.
 
 **⚙️ Penggunaan Model:** Antarmuka interaktif untuk memasukkan ulasan pengguna dan menjalankan model prediksi yang telah di-*deploy*.
 
