@@ -134,7 +134,7 @@ st.header("5️⃣ Mengunduh Hasil Analisis")
 
 
 st.image(
-    "assets/tutorial/dwnld.png",
+    "assets/dwnld.png",
     caption="Fitur unduh hasil analisis",
     use_container_width=True
 )
