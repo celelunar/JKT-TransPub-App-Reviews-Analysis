@@ -20,7 +20,7 @@ st.title("📊 Data dan Metodologi")
 tab_data, tab_resampling, tab_sa, tab_tm = st.tabs([
     "📊 Data",
     "⚖️ *Resampling*",
-    "😄 Analisis Sentimen",
+    "🚦 Analisis Sentimen",
     "📰 Pemodelan Topik"
 ])
 

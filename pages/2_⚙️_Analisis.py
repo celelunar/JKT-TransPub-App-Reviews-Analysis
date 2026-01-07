@@ -148,7 +148,7 @@ if st.session_state.df_sent is not None:
             use_container_width=True
         )
 
-    st.subheader("📊 Hasil Analisis Sentimen")
+    st.subheader("🚦 Hasil Analisis Sentimen")
 
     df_sent = st.session_state.df_sent
     df_pos = st.session_state.df_pos

@@ -24,7 +24,7 @@ st.subheader("Fitur Utama")
 st.markdown("""
 * **🚦 Prediksi Sentimen:** Mengklasifikasikan ulasan ke dalam kategori sentimen (positif atau negatif) menggunakan model BERT yang telah dilatih.
             
-* **🔍 Identifikasi Topik:** Menetapkan setiap ulasan ke salah satu topik yang telah diidentifikasi oleh model BERTopic yang telah dilatih.
+* **📰 Identifikasi Topik:** Menetapkan setiap ulasan ke salah satu topik yang telah diidentifikasi oleh model BERTopic yang telah dilatih.
 """)
 
 # --- Directory ---
